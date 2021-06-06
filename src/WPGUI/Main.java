@@ -28,7 +28,7 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) throws UnknownHostException, IOException {
-		Socket socket = new Socket("192.168.145.151", 7127); // 소켓 서버에 접속
+		Socket socket = new Socket("192.168.187.236", 7127); // 소켓 서버에 접속
 		Myconn.setSocket(socket);
 		launch(args);
 	}

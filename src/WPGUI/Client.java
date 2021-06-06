@@ -14,6 +14,7 @@ public class Client {
     private static ObjectOutputStream oos;
     private static ObjectInputStream ois;
 
+    public static final int LOGIN = 0;
     public static final int CITY = 1;
     public static final int STATE = 2;
     public static final int COUNTY = 3;
@@ -33,6 +34,29 @@ public class Client {
             key = keyValue;
         }
     }
+
+    public int setLoginAndgetResult(String id, String pw) throws IOException{
+        oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
+        LoginDTO dto = new LoginDTO();
+        dto.setId(id);
+        dto.setPw(pw);
+        map.put(LOGIN, dto);
+        oos.writeObject(map);
+        oos.flush();
+
+        ois = new ObjectInputStream(Myconn.socket.getInputStream());
+        try {
+            readHashMap = (HashMap<Integer, Object>) ois.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        findKey(readHashMap);
+
+        dto = (LoginDTO) readHashMap.get(key);
+        int result = dto.getResult(); ;
+        return result;
+    }
+
 
     public String[] setCityAndGetState(String city) throws IOException {
 
@@ -135,5 +159,6 @@ public class Client {
         airDTO adto = (airDTO) readHashMap.get(key);
         return adto;
     }
+
 
 }

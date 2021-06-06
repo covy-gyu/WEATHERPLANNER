@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DBConnection {
     public static Connection getConnection() {
-        String server = "jdbc:mysql://223.39.162.248:3306/weather"; // 서버 주소
+        String server = "jdbc:mysql://127.0.0.1:3306/weather"; // 서버 주소
         String user_name = "root"; //  접속자 id
         String password = "1234"; // 접속자 pw
         Connection conn = null;
