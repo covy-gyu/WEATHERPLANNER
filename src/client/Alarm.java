@@ -1,4 +1,4 @@
-package WPGUI;
+package client;
 
 import javafx.stage.Stage;
 import javafx.scene.Scene;

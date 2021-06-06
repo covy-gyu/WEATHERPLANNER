@@ -1,4 +1,4 @@
-package WPGUI;
+package client;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,7 +31,7 @@ public class NoticeController implements Initializable {
                 txtCurTemp.setText("현재 온도 : " + HomeController.curTemp + "°C");
             }
             if (data.equals("강")) {
-                txtCurRain.setText("강수 확률 : " + HomeController.curProb + "%");
+                txtCurRain.setText("강수량 : " + HomeController.curProb + "mm");
             }
             if (data.equals("미")) {
                 switch (HomeController.curDustDegree) {

@@ -1,4 +1,4 @@
-package WPGUI;
+package client;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

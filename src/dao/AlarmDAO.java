@@ -21,8 +21,9 @@ public class AlarmDAO {
     private static ResultSet rs = null;
 
     public static ArrayList<String> selectAlarm(String id) {
-        String SQL = "SELECT time FROM weather.Alarm WHERE id = ?";
+        String SQL = "SELECT time FROM weather.Alarm WHERE userId = ?";
         ArrayList<String> result = new ArrayList<>();
+
         try {
             conn = DBConnection.getConnection();
             pstmt = conn.prepareStatement(SQL);
@@ -34,6 +35,7 @@ public class AlarmDAO {
         } catch (SQLException sqle) {
             System.out.println("SELECT문에서 예외 발생");
             sqle.printStackTrace();
+            result = null;
             return result;
         } finally {
             try {
@@ -51,7 +53,7 @@ public class AlarmDAO {
     }
 
     public static boolean insertAlarm(AlarmDTO dto) {
-        String SQL = "INSERT INTO weather.Alarm(id,time)"
+        String SQL = "INSERT INTO weather.Alarm(userId,time)"
                 + "VALUES (?,?)";
         try {
             conn = DBConnection.getConnection();
@@ -80,8 +82,8 @@ public class AlarmDAO {
         insertResult = true;
         return insertResult;
     }
-    public static boolean delteAlarm(AlarmDTO dto) {
-        String SQL = "DELTE from weather.Alarm WHERE id = ? AND time = ?";
+    public static boolean deleteAlarm(AlarmDTO dto) {
+        String SQL = "DELETE from weather.Alarm WHERE userId = ? AND time = ?";
 
         try {
             conn = DBConnection.getConnection();

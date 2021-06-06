@@ -1,4 +1,4 @@
-package WPGUI;
+package client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -22,6 +22,7 @@ public class Client {
     public static final int DELETE_ALARM = 6;
     public static final int EARTHQUAKE = 7;
     public static final int TYPHOON = 8;
+    public static final int MIDDLEWEATHER = 9;
 
     HashMap<Integer, Object> readHashMap = new HashMap<>();
     HashMap<Integer, Object> wirteHashMap = new HashMap<>();
@@ -29,6 +30,7 @@ public class Client {
     ArrayList<WeatherDTO> wdtos = null;
     EarthquakeDTO eDto = null;
     TyphoonDTO tDto = null;
+    MiddleWeatherDTO mDto = null;
     Object request = null;
 
     int key = 0; // 키 값 찾기 (키 갯수 1개)
@@ -43,6 +45,7 @@ public class Client {
         oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
         AlarmDTO dto = new AlarmDTO();
         dto.setUserID(Myconn.SessionUserID);
+        wirteHashMap = new HashMap<>();
         wirteHashMap.put(SELECT_ALARM,dto);
         oos.writeObject(wirteHashMap);
         oos.flush();
@@ -68,6 +71,7 @@ public class Client {
         AlarmDTO dto = new AlarmDTO();
         dto.setUserID(Myconn.SessionUserID);
         dto.setTime(time);
+        wirteHashMap = new HashMap<>();
         wirteHashMap.put(INSERT_ALARM,dto);
         oos.writeObject(wirteHashMap);
         oos.flush();
@@ -93,6 +97,7 @@ public class Client {
         AlarmDTO dto = new AlarmDTO();
         dto.setUserID(Myconn.SessionUserID);
         dto.setTime(time);
+        wirteHashMap = new HashMap<>();
         wirteHashMap.put(INSERT_ALARM,dto);
         oos.writeObject(wirteHashMap);
         oos.flush();
@@ -119,6 +124,7 @@ public class Client {
         LoginDTO dto = new LoginDTO();
         dto.setId(id);
         dto.setPw(pw);
+        wirteHashMap = new HashMap<>();
         wirteHashMap.put(LOGIN, dto);
         oos.writeObject(wirteHashMap);
         oos.flush();
@@ -144,6 +150,7 @@ public class Client {
         resultDto.setCity(city);
         HashSet<LocationDTO> dto = new HashSet<>();
         dto.add(resultDto);
+        wirteHashMap = new HashMap<>();
         wirteHashMap.put(CITY, dto);
         oos.writeObject(wirteHashMap);
         oos.flush();
@@ -175,6 +182,7 @@ public class Client {
         resultDto.setState(state);
         HashSet<LocationDTO> dto = new HashSet<>();
         dto.add(resultDto);
+        wirteHashMap = new HashMap<>();
         wirteHashMap.put(STATE, dto);
         oos.writeObject(wirteHashMap);
         oos.flush();
@@ -207,6 +215,7 @@ public class Client {
         resultDto.setCounty(county);
         HashSet<LocationDTO> dto = new HashSet<>();
         dto.add(resultDto);
+        wirteHashMap = new HashMap<>();
         wirteHashMap.put(COUNTY, dto);
         oos.writeObject(wirteHashMap);
         oos.flush();
@@ -246,6 +255,7 @@ public class Client {
 
     public void getEarthquake(String[] eqkInfo) throws IOException{
         oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
+        wirteHashMap = new HashMap<>();
         wirteHashMap.put(EARTHQUAKE, request);
         oos.writeObject(wirteHashMap);
         oos.flush();
@@ -268,10 +278,13 @@ public class Client {
 
     }
     public void getTyphoon(String[] tpnInfo) throws IOException{
-        wirteHashMap.put(EARTHQUAKE, request);
+        oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
+        wirteHashMap = new HashMap<>();
+        wirteHashMap.put(TYPHOON, request);
         oos.writeObject(wirteHashMap);
         oos.flush();
 
+        ois = new ObjectInputStream(Myconn.socket.getInputStream());
         try {
             readHashMap = (HashMap<Integer, Object>) ois.readObject();
         } catch (ClassNotFoundException e) {
@@ -291,6 +304,33 @@ public class Client {
         tpnInfo[9] = tDto.getTyp25();
         tpnInfo[10] = tDto.getRem();
         tpnInfo[11] = tDto.getImg();
+    }
+
+    public void getFucsWeather(String[] fuHiTemp, String[] fuLowTemp, String[] fuExpect) throws IOException{
+        
+        ois = new ObjectInputStream(Myconn.socket.getInputStream());
+        try {
+            readHashMap = (HashMap<Integer, Object>) ois.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        findKey(readHashMap);
+        mDto = (MiddleWeatherDTO) readHashMap.get(key);
+        fuHiTemp[0] = mDto.getTaMax3();
+        fuHiTemp[1] = mDto.getTaMax4();
+        fuHiTemp[2] = mDto.getTaMax5();
+        fuHiTemp[3] = mDto.getTaMax6();
+        fuHiTemp.toString();
+        fuLowTemp[0] = mDto.getTaMin3();
+        fuLowTemp[1] = mDto.getTaMin4();
+        fuLowTemp[2] = mDto.getTaMin5();
+        fuLowTemp[3] = mDto.getTaMin6();
+        fuLowTemp.toString();
+        fuExpect[0] = mDto.getWf3Pm();
+        fuExpect[1] = mDto.getWf4Pm();
+        fuExpect[2] = mDto.getWf5Pm();
+        fuExpect[3] = mDto.getWf6Pm();
+        fuExpect.toString();
     }
 
 }

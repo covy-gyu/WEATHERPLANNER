@@ -1,4 +1,4 @@
-package WPGUI;
+package client;
 
 import java.io.IOException;
 import java.net.URL;
@@ -133,66 +133,70 @@ public class HomeController implements Initializable {
 		comHour.setItems(alarmHour);
 		comMin.setItems(alarmMin);
 
-		// String[] alarmStrings = null;
-		// try {
-		// alarmStrings = client.getAlarms();
-		// } catch (IOException e1) {
-		// // TODO Auto-generated catch block
-		// e1.printStackTrace();
-		// }
-		// for(int i=0;i<alarmStrings.length;i++)
-		// {
-		// aList.add(alarmStrings[i]);
-		// alarmDetail = new RadioButton(alarmStrings[i]);
-		// alarmDetail.setToggleGroup(alarmli);
-		// alarmList.getChildren().add(alarmDetail);
-		// }
+		String[] alarmStrings = null;
+		try {
+		alarmStrings = client.getAlarms();
+		} catch (IOException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+		}
+		for(int i=0;i<alarmStrings.length;i++)
+		{
+		aList.add(alarmStrings[i]);
+		alarmDetail = new RadioButton(alarmStrings[i]);
+		alarmDetail.setToggleGroup(alarmli);
+		alarmList.getChildren().add(alarmDetail);
+		}
 
 		Alarm autoAlarm = new Alarm();
 		autoAlarm.setDaemon(true);
 		autoAlarm.start();
 
-		// String[] earthqInfo = new String[7];
-		// try {
-		// 	client.getEarthquake(earthqInfo);
-		// } catch (IOException e1) {
-		// 	// TODO Auto-generated catch block
-		// 	e1.printStackTrace();
-		// }
+		String[] earthqInfo = new String[7];
+		try {
+			client.getEarthquake(earthqInfo);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
-		// if (!Objects.equals(earthqInfo, null)) {
-		// 	txtETime.setText("지진발생 시각 : " + earthqInfo[0]);
-		// 	txtEIntens.setText("진도 : " + earthqInfo[1]);
-		// 	txtELoc.setText("위치 : " + earthqInfo[2]);
-		// 	txtElati.setText("위도 : " + earthqInfo[3]);
-		// 	txtElong.setText("경도 : " + earthqInfo[4]);
-		// 	txtEWarn.setText("주의사항 : " + earthqInfo[5]);
-		// 	Image earthquake = new Image(earthqInfo[6]);
-		// 	imgEarthq.setImage(earthquake);
-		// }
+		if (!Objects.equals(earthqInfo, null)) {
+			txtETime.setText("지진발생 시각 : " + earthqInfo[0]);
+			txtEIntens.setText("진도 : " + earthqInfo[1]);
+			txtELoc.setText("위치 : " + earthqInfo[2]);
+			txtElati.setText("위도 : " + earthqInfo[3]);
+			txtElong.setText("경도 : " + earthqInfo[4]);
+			txtEWarn.setText("주의사항 : " + earthqInfo[5]);
+			Image earthquake = new Image(earthqInfo[6]);
+			imgEarthq.setImage(earthquake);
+		}
 
-		// String[] typonInfo = new String[12];
-		// try {
-		// 	client.getTyphoon(typonInfo);
-		// } catch (IOException e1) {
-		// 	// TODO Auto-generated catch block
-		// 	e1.printStackTrace();
-		// }
-		// if (!Objects.equals(typonInfo, null)) {
-		// 	txtTyponName.setText("  태풍이름 :" + typonInfo[0]);
-		// 	txtTyponRoute.setText("  진행방향 :" + typonInfo[1]);
-		// 	txtTyponSpeed.setText("  이동속도 :" + typonInfo[2]);
-		// 	txtTyponLati.setText("  위도 :" + typonInfo[3]);
-		// 	txtTyponLong.setText("  경도 :" + typonInfo[4]);
-		// 	txtTyponLoc.setText("  예상위치 :" + typonInfo[5]);
-		// 	txtTyponCenter.setText("  중심기압 :" + typonInfo[6]);
-		// 	txtTyponWind.setText("  최대풍속 :" + typonInfo[7]);
-		// 	txtTyponStroke.setText("  강풍반경 :" + typonInfo[8]);
-		// 	txtTyponStrom.setText("  폭풍반경 :" + typonInfo[9]);
-		// 	txtTyponWarn.setText("  주의사항 :" + typonInfo[10]);
-		// 	Image typon = new Image(typonInfo[11]);
-		// 	imgTypon.setImage(typon);
-		// }
+		String[] typonInfo = new String[12];
+		try {
+			client.getTyphoon(typonInfo);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if (!Objects.equals(typonInfo, null)) {
+			txtTyponName.setText("  태풍이름 :" + typonInfo[0]);
+			txtTyponRoute.setText("  진행방향 :" + typonInfo[1]);
+			txtTyponSpeed.setText("  이동속도 :" + typonInfo[2]);
+			txtTyponLati.setText("  위도 :" + typonInfo[3]);
+			txtTyponLong.setText("  경도 :" + typonInfo[4]);
+			txtTyponLoc.setText("  예상위치 :" + typonInfo[5]);
+			txtTyponCenter.setText("  중심기압 :" + typonInfo[6]);
+			txtTyponWind.setText("  최대풍속 :" + typonInfo[7]);
+			txtTyponStroke.setText("  강풍반경 :" + typonInfo[8]);
+			txtTyponStrom.setText("  폭풍반경 :" + typonInfo[9]);
+			txtTyponWarn.setText("  주의사항 :" + typonInfo[10]);
+			if(!typonInfo[11].equals(""))
+				{
+					Image typon = new Image(typonInfo[11]);
+					imgTypon.setImage(typon);
+				}
+			
+		}
 	}
 
 	private ObservableList<String> city = FXCollections.observableArrayList("강원도", "경기도", "경상남도", "경상북도", "광주광역시",
@@ -344,7 +348,7 @@ public class HomeController implements Initializable {
 			series.getData().add(new XYChart.Data<String, Number>(time[i] + "시", Integer.parseInt(temperature[i]) + i));
 		}
 		curTemp = temperature[0];
-		curProb = probPreci[0];
+		curProb = rainAmount[0];
 		series.setName("온도");
 		temperChart.getData().add(series);
 
@@ -542,7 +546,7 @@ public class HomeController implements Initializable {
 								default:
 									break;
 							}
-						} else {
+						} else if(!Objects.equals(cloud[i], null)) {
 							switch (i) {
 								case 0:
 									weatherImg1.setImage(moonImg);
@@ -574,19 +578,7 @@ public class HomeController implements Initializable {
 String[] fuHiTemp = new String[4]; //최고온도
 String[] fuLowTemp = new String[4]; //최저온도
 String[] fuExpect = new String[4]; //맑음, 구름많음, 흐림
-
-fuHiTemp[0] = "30";
-fuHiTemp[1] = "31";
-fuHiTemp[2] = "32";
-fuHiTemp[3] = "33";
-fuLowTemp[0] = "20";
-fuLowTemp[1] = "10";
-fuLowTemp[2] = "1";
-fuLowTemp[3] = "-30";
-fuExpect[0] = "맑음";
-fuExpect[1] = "흐림";
-fuExpect[2] = "흐리고 비";
-fuExpect[3] = "구름많고 비";
+client.getFucsWeather(fuHiTemp,fuLowTemp,fuExpect);
 
 if(!Objects.equals(fuHiTemp, null) && !Objects.equals(fuLowTemp, null)){
 	txtFuTemp1.setText(fuHiTemp[0] + "/" + fuLowTemp[0]);
@@ -801,10 +793,11 @@ for(int i = 0; i < 4; i++){
 	}
 
 	public void handleBtnDel(ActionEvent e) throws IOException {
-		if (!Objects.equals(alarmli.getUserData(), null)) {
+		if (!Objects.equals(aList, null)) {
 			aList.remove(((RadioButton) alarmli.getSelectedToggle()).getText());
 			alarmList.getChildren().remove(alarmli.getSelectedToggle());
 			client.deleteAlarm(((RadioButton) alarmli.getSelectedToggle()).getText());
 		}
 	}
 }
+

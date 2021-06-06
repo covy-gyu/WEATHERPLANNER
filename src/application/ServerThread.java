@@ -135,17 +135,18 @@ public class ServerThread extends Thread {
                     objectOutputStream.flush();
                     break;
                 case EARTHQUAKE:
-                    System.out.println("태풍 조회 요청받음");
+                    System.out.println("지진 조회 요청받음");
                     eqkDTO = EarthquakeDAO.selectData();
-
+                    objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
                     writeHashMap.put(EARTHQUAKE, eqkDTO);
                     objectOutputStream.writeObject(writeHashMap);
                     objectOutputStream.flush();
                     break;
                 case TYPHOON:
-                    System.out.println("지진 조회 요청받음");
+                    System.out.println("태풍 조회 요청받음");
                     tpnDTO = TyphoonDAO.selectData();
-
+                    
+                    objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
                     writeHashMap.put(TYPHOON, tpnDTO);
                     objectOutputStream.writeObject(writeHashMap);
                     objectOutputStream.flush();

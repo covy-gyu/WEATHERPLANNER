@@ -381,9 +381,9 @@
                                                                         <Font size="25.0" />
                                                                      </font>
                                                                   </Text>
+                                                                  <ImageView fx:id="imgEarthq" fitHeight="376.0" fitWidth="397.0" pickOnBounds="true" preserveRatio="true" />
                                                                </children>
                                                             </VBox>
-                                                            <ImageView fx:id="imgEarthq" fitHeight="376.0" fitWidth="397.0" pickOnBounds="true" preserveRatio="true" />
                                                          </children>
                                                          <padding>
                                                             <Insets left="10.0" />
@@ -429,10 +429,10 @@
                             <Tab text="태풍">
                                  <content>
                                     <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                       <left>
-                                          <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
-                                             <children>
-                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                                       <center>
+                                          <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                             <content>
+                                                <VBox prefHeight="966.0" prefWidth="716.0" spacing="10.0">
                                                    <children>
                                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="태풍정보">
                                                          <font>
@@ -494,18 +494,12 @@
                                                             <Font size="25.0" />
                                                          </font>
                                                       </Text>
+                                                      <ImageView fx:id="imgTypon" fitHeight="538.0" fitWidth="570.0" pickOnBounds="true" preserveRatio="true" />
                                                    </children>
-                                                   <HBox.margin>
-                                                      <Insets left="10.0" top="20.0" />
-                                                   </HBox.margin>
                                                 </VBox>
-                                                <ImageView fx:id="imgTypon" fitHeight="538.0" fitWidth="570.0" pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                             <padding>
-                                                <Insets top="20.0" />
-                                             </padding>
-                                          </HBox>
-                                       </left></BorderPane>
+                                             </content>
+                                          </ScrollPane>
+                                       </center></BorderPane>
                                  </content></Tab>
                           </tabs>
                         </TabPane>
