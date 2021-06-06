@@ -1,15 +1,18 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class WeatherDTO {
+public class WeatherDTO implements Serializable{
+    private static final long serialVersionUID = 1234567890L;
+
     private String fcstTIme;
-    private HashMap<Object, Object> fcstMap;
+    private HashMap<String, String> fcstMap;
 
     public WeatherDTO() {
     }
 
-    public WeatherDTO(String fcstTIme, HashMap<Object, Object> fcstMap) {
+    public WeatherDTO(String fcstTIme, HashMap<String, String> fcstMap) {
         this.fcstTIme = fcstTIme;
         this.fcstMap = fcstMap;
     }
@@ -22,11 +25,11 @@ public class WeatherDTO {
         this.fcstTIme = fcstTIme;
     }
 
-    public HashMap<Object, Object> getFcstMap() {
+    public HashMap<String, String> getFcstMap() {
         return fcstMap;
     }
 
-    public void setFcstMap(HashMap<Object, Object> fcstMap) {
+    public void setFcstMap(HashMap<String, String> fcstMap) {
         this.fcstMap = fcstMap;
     }
 }

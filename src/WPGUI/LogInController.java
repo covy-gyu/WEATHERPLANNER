@@ -26,8 +26,6 @@ public class LogInController implements Initializable {
 	@FXML
 	private Button btnLogin;
 
-	Client client = new Client();
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		btnLogin.setOnAction(e -> {
@@ -45,8 +43,8 @@ public class LogInController implements Initializable {
 		String password = txtPWD.getText();
 		System.out.println("Password: " + password);
 
-		int result = client.setLoginAndgetResult(id, password);
-
+		//int result = client.setLoginAndgetResult(id, password);
+		int result = 1;
 		switch (result) {
 			case 1:
 				try {

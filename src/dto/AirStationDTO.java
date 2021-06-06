@@ -1,6 +1,9 @@
 package dto;
 
-public class AirStationDTO  {
+import java.io.Serializable;
+
+public class AirStationDTO implements Serializable {
+    private static final long serialVersionUID = 1234567890L;
     private String city;
     private String stationName;
     private String stationLocation;

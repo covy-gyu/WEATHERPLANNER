@@ -1,6 +1,9 @@
 package dto;
 
-public class TyphoonDTO {
+import java.io.Serializable;
+
+public class TyphoonDTO implements Serializable {
+    private static final long serialVersionUID = 1234567890L;
 
     private String img;
     private String tmFc;

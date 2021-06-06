@@ -208,6 +208,27 @@
                                           </Text>
                                        </children>
                                     </VBox>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                                       <children>
+                                          <Text fx:id="time6" strokeType="OUTSIDE" strokeWidth="0.0">
+                                             <font>
+                                                <Font size="22.0" />
+                                             </font>
+                                          </Text>
+                                          <Text fx:id="temper6" strokeType="OUTSIDE" strokeWidth="0.0">
+                                             <font>
+                                                <Font size="22.0" />
+                                             </font>
+                                          </Text>
+                                          <ImageView fx:id="weatherImg6" fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                          </ImageView>
+                                          <Text fx:id="txtRain6" strokeType="OUTSIDE" strokeWidth="0.0">
+                                             <font>
+                                                <Font size="22.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
                                  </children>
                               </HBox>
                               <LineChart fx:id="temperChart" animated="false">
@@ -312,6 +333,51 @@
                                                             <Font size="33.0" />
                                                          </font>
                                                       </Text>
+                                                      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                                         <VBox.margin>
+                                                            <Insets />
+                                                         </VBox.margin>
+                                                         <children>
+                                                            <VBox prefHeight="200.0" prefWidth="100.0">
+                                                               <children>
+                                                                  <Text fx:id="txtETime" strokeType="OUTSIDE" strokeWidth="0.0" text="지진 발생시각 : 정보없음">
+                                                                     <font>
+                                                                        <Font size="25.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text fx:id="txtEIntens" strokeType="OUTSIDE" strokeWidth="0.0" text="진도 : 정보없음">
+                                                                     <font>
+                                                                        <Font size="25.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text fx:id="txtELoc" strokeType="OUTSIDE" strokeWidth="0.0" text="위치 : 정보없음">
+                                                                     <font>
+                                                                        <Font size="25.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text fx:id="txtElati" strokeType="OUTSIDE" strokeWidth="0.0" text="위도 : 정보없음">
+                                                                     <font>
+                                                                        <Font size="25.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text fx:id="txtElong" strokeType="OUTSIDE" strokeWidth="0.0" text="경도 : 정보없음">
+                                                                     <font>
+                                                                        <Font size="25.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <Text fx:id="txtEWarn" strokeType="OUTSIDE" strokeWidth="0.0" text="주의사항 : 정보없음">
+                                                                     <font>
+                                                                        <Font size="25.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                               </children>
+                                                            </VBox>
+                                                            <ImageView fx:id="imgEarthq" fitHeight="376.0" fitWidth="397.0" pickOnBounds="true" preserveRatio="true" />
+                                                         </children>
+                                                         <padding>
+                                                            <Insets left="10.0" />
+                                                         </padding>
+                                                      </HBox>
                                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="대비 및 대처방안">
                                                          <font>
                                                             <Font size="33.0" />
@@ -351,7 +417,84 @@
                             </Tab>
                             <Tab text="태풍">
                                  <content>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0" />
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                       <left>
+                                          <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+                                             <children>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="태풍정보">
+                                                         <font>
+                                                            <Font size="33.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="txtTyponName" strokeType="OUTSIDE" strokeWidth="0.0" text="  태풍이름 :">
+                                                         <font>
+                                                            <Font size="25.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="txtTyponRoute" strokeType="OUTSIDE" strokeWidth="0.0" text="  진행방향 :">
+                                                         <font>
+                                                            <Font size="25.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="txtTyponSpeed" strokeType="OUTSIDE" strokeWidth="0.0" text="  이동속도 :">
+                                                         <font>
+                                                            <Font size="25.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="txtTyponLati" strokeType="OUTSIDE" strokeWidth="0.0" text="  위도 :">
+                                                         <font>
+                                                            <Font size="25.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="txtTyponLong" strokeType="OUTSIDE" strokeWidth="0.0" text="  경도 :">
+                                                         <font>
+                                                            <Font size="25.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="txtTyponLoc" strokeType="OUTSIDE" strokeWidth="0.0" text="  예상위치 :">
+                                                         <font>
+                                                            <Font size="25.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="txtTyponCenter" strokeType="OUTSIDE" strokeWidth="0.0" text="  중심기압 :">
+                                                         <font>
+                                                            <Font size="25.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="txtTyponWind" strokeType="OUTSIDE" strokeWidth="0.0" text="  최대풍속 :">
+                                                         <font>
+                                                            <Font size="25.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="txtTyponStroke" strokeType="OUTSIDE" strokeWidth="0.0" text="  강풍반경 :">
+                                                         <font>
+                                                            <Font size="25.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="txtTyponStrom" strokeType="OUTSIDE" strokeWidth="0.0" text="  폭풍반경 :">
+                                                         <font>
+                                                            <Font size="25.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="txtTyponWarn" strokeType="OUTSIDE" strokeWidth="0.0" text="  주의사항 :">
+                                                         <font>
+                                                            <Font size="25.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" top="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                                <ImageView fx:id="imgTypon" fitHeight="538.0" fitWidth="570.0" pickOnBounds="true" preserveRatio="true" />
+                                             </children>
+                                             <padding>
+                                                <Insets top="20.0" />
+                                             </padding>
+                                          </HBox>
+                                       </left></BorderPane>
                                  </content></Tab>
                           </tabs>
                         </TabPane>

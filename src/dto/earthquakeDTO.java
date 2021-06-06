@@ -1,6 +1,8 @@
 package dto;
 
-public class EarthquakeDTO {
+import java.io.Serializable;
+
+public class EarthquakeDTO implements Serializable {
    
     private String fcTp;
     private String img;

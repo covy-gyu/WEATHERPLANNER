@@ -1,6 +1,10 @@
 package dto;
 
-public class AlarmDTO {
+import java.io.Serializable;
+
+public class AlarmDTO implements Serializable{
+    private static final long serialVersionUID = 1234567890L;
+
     private String userID;
     private String time;
     public String getUserID() {

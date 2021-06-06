@@ -41,8 +41,48 @@ public class HomeController implements Initializable {
 	private ComboBox<String> comHour;
 	@FXML
 	private ComboBox<String> comMin;
-	
+
 	Client client = new Client();
+
+	// 재난정보
+	@FXML
+	private Text txtETime;
+	@FXML
+	private Text txtEIntens;
+	@FXML
+	private Text txtELoc;
+	@FXML
+	private Text txtElong;
+	@FXML
+	private Text txtElati;
+	@FXML
+	private Text txtEWarn;
+	@FXML
+	private ImageView imgEarthq;
+	@FXML
+	private Text txtTyponName;
+	@FXML
+	private Text txtTyponRoute;
+	@FXML
+	private Text txtTyponSpeed;
+	@FXML
+	private Text txtTyponLati;
+	@FXML
+	private Text txtTyponLong;
+	@FXML
+	private Text txtTyponLoc;
+	@FXML
+	private Text txtTyponCenter;
+	@FXML
+	private Text txtTyponWind;
+	@FXML
+	private Text txtTyponStroke;
+	@FXML
+	private Text txtTyponStrom;
+	@FXML
+	private Text txtTyponWarn;
+	@FXML
+	private ImageView imgTypon;
 
 	// combobox
 	@Override
@@ -70,15 +110,94 @@ public class HomeController implements Initializable {
 				e1.printStackTrace();
 			}
 		});
-		btnSave.setOnAction(e -> handleBtnSave(e));
-		btnDel.setOnAction(e -> handleBtnDel(e));
+		btnSave.setOnAction(e -> {
+			try {
+				handleBtnSave(e);
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+		});
+		btnDel.setOnAction(e -> {
+			try {
+				handleBtnDel(e);
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+		});
 		comWeatherCity.setItems(city);
 		comHour.setItems(alarmHour);
 		comMin.setItems(alarmMin);
 
+		// String[] alarmStrings = null;
+		// try {
+		// alarmStrings = client.getAlarms();
+		// } catch (IOException e1) {
+		// // TODO Auto-generated catch block
+		// e1.printStackTrace();
+		// }
+		// for(int i=0;i<alarmStrings.length;i++)
+		// {
+		// aList.add(alarmStrings[i]);
+		// alarmDetail = new RadioButton(alarmStrings[i]);
+		// alarmDetail.setToggleGroup(alarmli);
+		// alarmList.getChildren().add(alarmDetail);
+		// }
+
 		Alarm autoAlarm = new Alarm();
 		autoAlarm.setDaemon(true);
 		autoAlarm.start();
+
+		String[] earthqInfo = new String[7];
+		earthqInfo[0] = "00:00시"; // 지진발생시각
+		earthqInfo[1] = "1.2"; // 진도
+		earthqInfo[2] = "구미"; // 위치
+		earthqInfo[3] = "20"; // 위도
+		earthqInfo[4] = "10"; // 경도
+		earthqInfo[5] = "없음"; // 주의사항
+		earthqInfo[6] = "https://cdn.discordapp.com/attachments/374922708946780172/851036467714195497/20210606_185501.jpg"; // 이미지
+
+		if (!Objects.equals(earthqInfo, null)) {
+			txtETime.setText("지진발생 시각 : " + earthqInfo[0]);
+			txtEIntens.setText("진도 : " + earthqInfo[1]);
+			txtELoc.setText("위치 : " + earthqInfo[2]);
+			txtElati.setText("위도 : " + earthqInfo[3]);
+			txtElong.setText("경도 : " + earthqInfo[4]);
+			txtEWarn.setText("주의사항 : " + earthqInfo[5]);
+			Image earthquake = new Image(earthqInfo[6]);
+			imgEarthq.setImage(earthquake);
+		}
+
+		String[] typonInfo = new String[12];
+		typonInfo[0] = "규철태풍"; // 태풍이름
+		typonInfo[1] = "구미쪽"; // 진행방향
+		typonInfo[2] = "엄청 빠름"; // 이동속도
+		typonInfo[3] = "20"; // 위도
+		typonInfo[4] = "30"; // 경도
+		typonInfo[5] = "금오공댸쪽"; // 예상위치
+		typonInfo[6] = "엄청 쎔"; // 중심기압
+		typonInfo[7] = "개빠름"; // 최대풍속
+		typonInfo[8] = "좀 넓음"; // 강풍반경
+		typonInfo[9] = "좀 많이 넓음"; // 폭풍반경
+		typonInfo[10] = "규철이 조심"; // 주의사항
+		typonInfo[11] = "https://cdn.discordapp.com/attachments/374922708946780172/851036467714195497/20210606_185501.jpg"; // 이미지
+
+		if (!Objects.equals(typonInfo, null)) {
+			txtTyponName.setText("  태풍이름 :" + typonInfo[0]);
+			txtTyponRoute.setText("  진행방향 :" + typonInfo[1]);
+			txtTyponSpeed.setText("  이동속도 :" + typonInfo[2]);
+			txtTyponLati.setText("  위도 :" + typonInfo[3]);
+			txtTyponLong.setText("  경도 :" + typonInfo[4]);
+			txtTyponLoc.setText("  예상위치 :" + typonInfo[5]);
+			txtTyponCenter.setText("  중심기압 :" + typonInfo[6]);
+			txtTyponWind.setText("  최대풍속 :" + typonInfo[7]);
+			txtTyponStroke.setText("  강풍반경 :" + typonInfo[8]);
+			txtTyponStrom.setText("  폭풍반경 :" + typonInfo[9]);
+			txtTyponWarn.setText("  주의사항 :" + typonInfo[10]);
+			Image typon = new Image(typonInfo[11]);
+			imgTypon.setImage(typon);
+		}
 	}
 
 	private ObservableList<String> city = FXCollections.observableArrayList("강원도", "경기도", "경상남도", "경상북도", "광주광역시",
@@ -90,11 +209,10 @@ public class HomeController implements Initializable {
 			"06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
 			"24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41",
 			"42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59");
-	
+
 	private String selectedCity = null;
 	private String selectedState = null;
 	private String selectedCounty = null;
-		
 
 	@FXML
 	public void handleWeatGroup(ActionEvent e) throws IOException {
@@ -108,12 +226,12 @@ public class HomeController implements Initializable {
 
 	@FXML
 	public void handleWeatCounty(ActionEvent e) throws IOException {
-		if(!Objects.equals(comWeatherState.getValue(), null)){
+		if (!Objects.equals(comWeatherState.getValue(), null)) {
 			String weatherCity = comWeatherCity.getValue().toString();
 			String weatherState = comWeatherState.getValue().toString();
 			comWeatherCounty.getItems().clear();
 			selectedState = weatherState;
-			comWeatherCounty.getItems().addAll(client.setStateAndGetCounty(weatherCity,weatherState));
+			comWeatherCounty.getItems().addAll(client.setStateAndGetCounty(weatherCity, weatherState));
 			btnRefresh.setDisable(true);
 		}
 	}
@@ -132,6 +250,8 @@ public class HomeController implements Initializable {
 	@FXML
 	private Text time5;
 	@FXML
+	private Text time6;
+	@FXML
 	private Text temper1;
 	@FXML
 	private Text temper2;
@@ -141,6 +261,8 @@ public class HomeController implements Initializable {
 	private Text temper4;
 	@FXML
 	private Text temper5;
+	@FXML
+	private Text temper6;
 	@FXML
 	private Text txtRain1;
 	@FXML
@@ -152,6 +274,8 @@ public class HomeController implements Initializable {
 	@FXML
 	private Text txtRain5;
 	@FXML
+	private Text txtRain6;
+	@FXML
 	private ImageView weatherImg1;
 	@FXML
 	private ImageView weatherImg2;
@@ -161,6 +285,8 @@ public class HomeController implements Initializable {
 	private ImageView weatherImg4;
 	@FXML
 	private ImageView weatherImg5;
+	@FXML
+	private ImageView weatherImg6;
 	@FXML
 	private Text txtFineDust;
 	@FXML
@@ -189,21 +315,20 @@ public class HomeController implements Initializable {
 		temperChart.getData().clear();
 		XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
 
-		String[] time = new String[5]; // 시간정보
-		String[] temperature = new String[5]; // 기온
-		String[] probPreci = new String[5]; // 강수확률
-		String[] rainAmount = new String[5]; // 강수량
-		String[] cloud = new String[5]; // 구름 1 3 4
+		String[] time = new String[6]; // 시간정보
+		String[] temperature = new String[6]; // 기온
+		String[] probPreci = new String[6]; // 강수확률
+		String[] rainAmount = new String[6]; // 강수량
+		String[] cloud = new String[6]; // 구름 1 3 4
 
-		String[] airInfo = new String[6];//대기오염
-        client.getWeatherAndAir(selectedCity, selectedState, selectedCounty, time, temperature, probPreci, cloud, airInfo);
+		selectedCounty = comWeatherCounty.getValue();
+		String[] airInfo = new String[6];// 대기오염
+		client.getWeather(selectedCity, selectedState, selectedCounty, time, temperature, rainAmount, cloud);
 
 		for (int i = 0; i < time.length; i++) {
-			time[i] = Integer.toString(i); // 시간
-			temperature[i] = "18"; // 기온
-			probPreci[i] = "0"; // 강수확률
-			rainAmount[i] = "111"; // 강수량
-			cloud[i] = "3"; // 구름
+			if (Objects.equals(time[i], null)) {
+				break;
+			}
 			series.getData().add(new XYChart.Data<String, Number>(time[i] + "시", Integer.parseInt(temperature[i]) + i));
 		}
 		curTemp = temperature[0];
@@ -214,38 +339,53 @@ public class HomeController implements Initializable {
 		// 주간날씨
 
 		currentTemperature.setText(temperature[0] + "°C");
-		time1.setText(time[0] + "시");
-		time2.setText(time[1] + "시");
-		time3.setText(time[2] + "시");
-		time4.setText(time[3] + "시");
-		time5.setText(time[4] + "시");
-		temper1.setText(temperature[0] + "°C");
-		temper2.setText(temperature[1] + "°C");
-		temper3.setText(temperature[2] + "°C");
-		temper4.setText(temperature[3] + "°C");
-		temper5.setText(temperature[4] + "°C");
-		if(Integer.parseInt(rainAmount[0]) != 0)
+		if (!Objects.equals(time[0], null))
+			time1.setText(time[0] + "시");
+		if (!Objects.equals(time[1], null))
+			time2.setText(time[1] + "시");
+		if (!Objects.equals(time[2], null))
+			time3.setText(time[2] + "시");
+		if (!Objects.equals(time[3], null))
+			time4.setText(time[3] + "시");
+		if (!Objects.equals(time[4], null))
+			time5.setText(time[4] + "시");
+		if (!Objects.equals(time[5], null))
+			time6.setText(time[5] + "시");
+		if (!Objects.equals(temperature[0], null))
+			temper1.setText(temperature[0] + "°C");
+		if (!Objects.equals(temperature[1], null))
+			temper2.setText(temperature[1] + "°C");
+		if (!Objects.equals(temperature[2], null))
+			temper3.setText(temperature[2] + "°C");
+		if (!Objects.equals(temperature[3], null))
+			temper4.setText(temperature[3] + "°C");
+		if (!Objects.equals(temperature[4], null))
+			temper5.setText(temperature[4] + "°C");
+		if (!Objects.equals(temperature[5], null))
+			temper6.setText(temperature[5] + "°C");
+		if (!Objects.equals(rainAmount[0], null) && Integer.parseInt(rainAmount[0]) != 0)
 			txtRain1.setText(rainAmount[0] + "mm");
-		if(Integer.parseInt(rainAmount[1]) != 0)
+		if (!Objects.equals(rainAmount[1], null) && Integer.parseInt(rainAmount[1]) != 0)
 			txtRain2.setText(rainAmount[1] + "mm");
-		if(Integer.parseInt(rainAmount[2]) != 0)
+		if (!Objects.equals(rainAmount[2], null) && Integer.parseInt(rainAmount[2]) != 0)
 			txtRain3.setText(rainAmount[2] + "mm");
-		if(Integer.parseInt(rainAmount[3]) != 0)
+		if (!Objects.equals(rainAmount[3], null) && Integer.parseInt(rainAmount[3]) != 0)
 			txtRain4.setText(rainAmount[3] + "mm");
-		if(Integer.parseInt(rainAmount[4]) != 0)
+		if (!Objects.equals(rainAmount[4], null) && Integer.parseInt(rainAmount[4]) != 0)
 			txtRain5.setText(rainAmount[4] + "mm");
+		if (!Objects.equals(rainAmount[5], null) && Integer.parseInt(rainAmount[5]) != 0)
+			txtRain6.setText(rainAmount[5] + "mm");
 
-		Image cloudImg = new Image("file:WeatherPlanner/src/WPimg/cloud.png");
-		Image moonImg = new Image("file:WeatherPlanner/src/WPimg/moon.png");
-		Image rainImg = new Image("file:WeatherPlanner/src/WPimg/rain.png");
-		Image snowImg = new Image("file:WeatherPlanner/src/WPimg/snow.png");
-		Image sunImg = new Image("file:WeatherPlanner/src/WPimg/sun.png");
-		Image sunCloudImg = new Image("file:WeatherPlanner/src/WPimg/sunCloud.png");
-		Image moonCloudImg = new Image("file:WeatherPlanner/src/WPimg/moonCloud.png");
-
-		for (int i = 0; i < time.length; i++) {
-			if (Integer.parseInt(probPreci[i]) >= 50) {
-				if (Integer.parseInt(temperature[i]) <= 0) {
+		Image cloudImg = new Image("/WPimg/cloud.png");
+		Image moonImg = new Image("/WPimg/moon.png");
+		Image rainImg = new Image("/WPimg/rain.png");
+		Image snowImg = new Image("/WPimg/snow.png");
+		Image sunImg = new Image("/WPimg/sun.png");
+		Image sunCloudImg = new Image("/WPimg/sunCloud.png");
+		Image moonCloudImg = new Image("/WPimg/moonCloud.png");
+		for (int i = 0; i < 6; i++) {
+			if (!Objects.equals(rainAmount[i], null) && Integer.parseInt(rainAmount[i]) > 0) {
+				if (!Objects.equals(temperature[i], null) && Integer.parseInt(temperature[i]) < 0) {
 					switch (i) {
 						case 0:
 							weatherImg1.setImage(snowImg);
@@ -262,10 +402,12 @@ public class HomeController implements Initializable {
 						case 4:
 							weatherImg5.setImage(snowImg);
 							break;
+						case 5:
+							weatherImg6.setImage(snowImg);
+							break;
 						default:
 							break;
 					}
-					continue;
 				} else {
 					switch (i) {
 						case 0:
@@ -283,57 +425,15 @@ public class HomeController implements Initializable {
 						case 4:
 							weatherImg5.setImage(rainImg);
 							break;
+						case 5:
+							weatherImg6.setImage(rainImg);
+							break;
 						default:
 							break;
 					}
-					continue;
 				}
 			} else {
-				if (Integer.parseInt(cloud[i]) == 3) {
-					if (Integer.parseInt(time[i]) >= 18) {
-						switch (i) {
-							case 0:
-								weatherImg1.setImage(moonCloudImg);
-								break;
-							case 1:
-								weatherImg2.setImage(moonCloudImg);
-								break;
-							case 2:
-								weatherImg3.setImage(moonCloudImg);
-								break;
-							case 3:
-								weatherImg4.setImage(moonCloudImg);
-								break;
-							case 4:
-								weatherImg5.setImage(moonCloudImg);
-								break;
-							default:
-								break;
-						}
-						continue;
-					} else {
-						switch (i) {
-							case 0:
-								weatherImg1.setImage(sunCloudImg);
-								break;
-							case 1:
-								weatherImg2.setImage(sunCloudImg);
-								break;
-							case 2:
-								weatherImg3.setImage(sunCloudImg);
-								break;
-							case 3:
-								weatherImg4.setImage(sunCloudImg);
-								break;
-							case 4:
-								weatherImg5.setImage(sunCloudImg);
-								break;
-							default:
-								break;
-						}
-						continue;
-					}
-				} else if (Integer.parseInt(cloud[i]) == 4) {
+				if (!Objects.equals(cloud[i], null) && Integer.parseInt(cloud[i]) == 4) {
 					switch (i) {
 						case 0:
 							weatherImg1.setImage(cloudImg);
@@ -350,67 +450,125 @@ public class HomeController implements Initializable {
 						case 4:
 							weatherImg5.setImage(cloudImg);
 							break;
+						case 5:
+							weatherImg6.setImage(cloudImg);
+							break;
 						default:
 							break;
 					}
-					continue;
 				} else {
-					if (Integer.parseInt(time[i]) >= 18) {
-						switch (i) {
-							case 0:
-								weatherImg1.setImage(moonImg);
-								break;
-							case 1:
-								weatherImg2.setImage(moonImg);
-								break;
-							case 2:
-								weatherImg3.setImage(moonImg);
-								break;
-							case 3:
-								weatherImg4.setImage(moonImg);
-								break;
-							case 4:
-								weatherImg5.setImage(moonImg);
-								break;
-							default:
-								break;
+					if (!Objects.equals(time[i], null)
+							&& (5 < Integer.parseInt(time[i]) && Integer.parseInt(time[i]) < 20)) {
+						if (!Objects.equals(cloud[i], null) && Integer.parseInt(cloud[i]) == 3) {
+							switch (i) {
+								case 0:
+									weatherImg1.setImage(sunCloudImg);
+									break;
+								case 1:
+									weatherImg2.setImage(sunCloudImg);
+									break;
+								case 2:
+									weatherImg3.setImage(sunCloudImg);
+									break;
+								case 3:
+									weatherImg4.setImage(sunCloudImg);
+									break;
+								case 4:
+									weatherImg5.setImage(sunCloudImg);
+									break;
+								case 5:
+									weatherImg6.setImage(sunCloudImg);
+									break;
+								default:
+									break;
+							}
+						} else {
+							switch (i) {
+								case 0:
+									weatherImg1.setImage(sunImg);
+									break;
+								case 1:
+									weatherImg2.setImage(sunImg);
+									break;
+								case 2:
+									weatherImg3.setImage(sunImg);
+									break;
+								case 3:
+									weatherImg4.setImage(sunImg);
+									break;
+								case 4:
+									weatherImg5.setImage(sunImg);
+									break;
+								case 5:
+									weatherImg6.setImage(sunImg);
+									break;
+								default:
+									break;
+							}
 						}
-						continue;
 					} else {
-						switch (i) {
-							case 0:
-								weatherImg1.setImage(sunImg);
-								break;
-							case 1:
-								weatherImg2.setImage(sunImg);
-								break;
-							case 2:
-								weatherImg3.setImage(sunImg);
-								break;
-							case 3:
-								weatherImg4.setImage(sunImg);
-								break;
-							case 4:
-								weatherImg5.setImage(sunImg);
-								break;
-							default:
-								break;
+						if (!Objects.equals(cloud[i], null) && Integer.parseInt(cloud[i]) == 3) {
+							switch (i) {
+								case 0:
+									weatherImg1.setImage(moonCloudImg);
+									break;
+								case 1:
+									weatherImg2.setImage(moonCloudImg);
+									break;
+								case 2:
+									weatherImg3.setImage(moonCloudImg);
+									break;
+								case 3:
+									weatherImg4.setImage(moonCloudImg);
+									break;
+								case 4:
+									weatherImg5.setImage(moonCloudImg);
+									break;
+								case 5:
+									weatherImg6.setImage(moonCloudImg);
+									break;
+								default:
+									break;
+							}
+						} else {
+							switch (i) {
+								case 0:
+									weatherImg1.setImage(moonImg);
+									break;
+								case 1:
+									weatherImg2.setImage(moonImg);
+									break;
+								case 2:
+									weatherImg3.setImage(moonImg);
+									break;
+								case 3:
+									weatherImg4.setImage(moonImg);
+									break;
+								case 4:
+									weatherImg5.setImage(moonImg);
+									break;
+								case 5:
+									weatherImg6.setImage(moonImg);
+									break;
+								default:
+									break;
+							}
 						}
-						continue;
 					}
 				}
 			}
 		}
 
+		client.getAir(airInfo);
 		// dust
 		String fineDust = airInfo[0]; // 미세먼지
-        String ultrafineDust = airInfo[1]; // 초미세먼지
-        String ozone = airInfo[2]; // 오존
+		String ultrafineDust = airInfo[1]; // 초미세먼지
+		String ozone = airInfo[2]; // 오존
 		curDust = fineDust;
 
 		String fineDustDegree = airInfo[3]; // 미세먼지정도
-        String ultrafineDustDegree = airInfo[4]; // 초미세먼지정도
-        String ozoneDegree = airInfo[5]; // 오존정도
+		String ultrafineDustDegree = airInfo[4]; // 초미세먼지정도
+		String ozoneDegree = airInfo[5]; // 오존정도
 
 		curDustDegree = fineDustDegree;
 
@@ -506,7 +664,7 @@ public class HomeController implements Initializable {
 	String selected = "";
 	public static ArrayList<String> aList = new ArrayList<String>();
 
-	public void handleBtnSave(ActionEvent e) {
+	public void handleBtnSave(ActionEvent e) throws IOException {
 		if (!Objects.equals(alarmDate.getValue(), null)
 				&& (checkTem.isSelected() || checkRain.isSelected() || checkDust.isSelected())
 				&& !Objects.equals(comHour.getValue(), null) && !Objects.equals(comMin.getValue(), null)) {
@@ -525,14 +683,16 @@ public class HomeController implements Initializable {
 			alarmDetail = new RadioButton(selected);
 			alarmDetail.setToggleGroup(alarmli);
 			alarmList.getChildren().add(alarmDetail);
+			client.saveAlarm(selected);
 			selected = "";
 		}
 	}
 
-	public void handleBtnDel(ActionEvent e) {
-		if(!Objects.equals(alarmli.getUserData(), null)){
-			aList.remove(((RadioButton)alarmli.getSelectedToggle()).getText());
+	public void handleBtnDel(ActionEvent e) throws IOException {
+		if (!Objects.equals(alarmli.getUserData(), null)) {
+			aList.remove(((RadioButton) alarmli.getSelectedToggle()).getText());
 			alarmList.getChildren().remove(alarmli.getSelectedToggle());
+			client.deleteAlarm(((RadioButton) alarmli.getSelectedToggle()).getText());
 		}
 	}
 }
