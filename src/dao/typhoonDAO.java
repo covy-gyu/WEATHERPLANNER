@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 import dto.TyphoonDTO;
 
@@ -67,6 +68,8 @@ public class TyphoonDAO {
     public static boolean insertData(TyphoonDTO dto) {
         String SQL = "INSERT INTO weather.Typhoon(typTm,img,tmFc,typLat,typLon,typLoc,typDir,typSp,typPs,typWs,typ15,typ25,typName,typEn,rem,other)"
                 + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        if (Objects.equals(dto, null))
+            return insertResult;
         try {
             conn = DBConnection.getConnection();
             pstmt = conn.prepareStatement(SQL);

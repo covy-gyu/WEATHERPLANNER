@@ -11,8 +11,8 @@ import java.util.Iterator;
 import dto.*;
 
 public class Client {
-    private static ObjectOutputStream oos;
-    private static ObjectInputStream ois;
+    private  ObjectOutputStream oos;
+    private  ObjectInputStream ois;
     public static final int LOGIN = 0;
     public static final int CITY = 1;
     public static final int STATE = 2;
@@ -22,17 +22,6 @@ public class Client {
     public static final int DELETE_ALARM = 6;
     public static final int EARTHQUAKE = 7;
     public static final int TYPHOON = 8;
-
-    public Client() {
-        try {
-            oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
-            ois = new ObjectInputStream(Myconn.socket.getInputStream());
-        } catch (IOException e) {
-            //TODO: handle exception
-            e.printStackTrace();
-        }
-       
-    }
 
     HashMap<Integer, Object> readHashMap = new HashMap<>();
     HashMap<Integer, Object> wirteHashMap = new HashMap<>();
@@ -51,7 +40,7 @@ public class Client {
     }
 
     public String[] getAlarms() throws IOException{
-        //oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
+        oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
         AlarmDTO dto = new AlarmDTO();
         dto.setUserID(Myconn.SessionUserID);
         wirteHashMap.put(SELECT_ALARM,dto);
@@ -75,7 +64,7 @@ public class Client {
         return result;
     }
     public void saveAlarm(String time) throws IOException{
-        //oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
+        oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
         AlarmDTO dto = new AlarmDTO();
         dto.setUserID(Myconn.SessionUserID);
         dto.setTime(time);
@@ -83,7 +72,7 @@ public class Client {
         oos.writeObject(wirteHashMap);
         oos.flush();
 
-       // ois = new ObjectInputStream(Myconn.socket.getInputStream());
+        ois = new ObjectInputStream(Myconn.socket.getInputStream());
         try {
             readHashMap = (HashMap<Integer, Object>) ois.readObject();
         } catch (ClassNotFoundException e) {
@@ -100,7 +89,7 @@ public class Client {
             System.out.println("db : 알림저장 실패");
     }
     public void deleteAlarm(String time) throws IOException{
-        //oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
+        oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
         AlarmDTO dto = new AlarmDTO();
         dto.setUserID(Myconn.SessionUserID);
         dto.setTime(time);
@@ -108,7 +97,7 @@ public class Client {
         oos.writeObject(wirteHashMap);
         oos.flush();
 
-        //ois = new ObjectInputStream(Myconn.socket.getInputStream());
+        ois = new ObjectInputStream(Myconn.socket.getInputStream());
         try {
             readHashMap = (HashMap<Integer, Object>) ois.readObject();
         } catch (ClassNotFoundException e) {
@@ -126,7 +115,7 @@ public class Client {
     }
 
     public int setLoginAndgetResult(String id, String pw) throws IOException {
-       // oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
+        oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
         LoginDTO dto = new LoginDTO();
         dto.setId(id);
         dto.setPw(pw);
@@ -134,7 +123,7 @@ public class Client {
         oos.writeObject(wirteHashMap);
         oos.flush();
 
-        //ois = new ObjectInputStream(Myconn.socket.getInputStream());
+        ois = new ObjectInputStream(Myconn.socket.getInputStream());
         try {
             readHashMap = (HashMap<Integer, Object>) ois.readObject();
         } catch (ClassNotFoundException e) {
@@ -150,7 +139,7 @@ public class Client {
 
     public String[] setCityAndGetState(String city) throws IOException {
 
-        //oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
+        oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
         LocationDTO resultDto = new LocationDTO();
         resultDto.setCity(city);
         HashSet<LocationDTO> dto = new HashSet<>();
@@ -159,7 +148,7 @@ public class Client {
         oos.writeObject(wirteHashMap);
         oos.flush();
 
-        //ois = new ObjectInputStream(Myconn.socket.getInputStream());
+        ois = new ObjectInputStream(Myconn.socket.getInputStream());
         try {
             readHashMap = (HashMap<Integer, Object>) ois.readObject();
         } catch (ClassNotFoundException e) {
@@ -180,7 +169,7 @@ public class Client {
 
     public String[] setStateAndGetCounty(String city, String state) throws IOException {
 
-        //oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
+        oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
         LocationDTO resultDto = new LocationDTO();
         resultDto.setCity(city);
         resultDto.setState(state);
@@ -190,7 +179,7 @@ public class Client {
         oos.writeObject(wirteHashMap);
         oos.flush();
 
-        //ois = new ObjectInputStream(Myconn.socket.getInputStream());
+        ois = new ObjectInputStream(Myconn.socket.getInputStream());
         try {
             readHashMap = (HashMap<Integer, Object>) ois.readObject();
         } catch (ClassNotFoundException e) {
@@ -211,7 +200,7 @@ public class Client {
     public void getWeather(String city, String state, String county, String[] time, String[] temperature,
              String[] rainAmount, String[] cloud) throws IOException {
 
-        //oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
+        oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
         LocationDTO resultDto = new LocationDTO();
         resultDto.setCity(city);
         resultDto.setState(state);
@@ -222,7 +211,7 @@ public class Client {
         oos.writeObject(wirteHashMap);
         oos.flush();
 
-        //ois = new ObjectInputStream(Myconn.socket.getInputStream());
+        ois = new ObjectInputStream(Myconn.socket.getInputStream());
         try {
             readHashMap = (HashMap<Integer, Object>) ois.readObject();
         } catch (ClassNotFoundException e) {
@@ -239,6 +228,7 @@ public class Client {
     }
 
     public void getAir(String[] airInfo) throws IOException {   
+        ois = new ObjectInputStream(Myconn.socket.getInputStream());
         try {
             readHashMap = (HashMap<Integer, Object>) ois.readObject();
         } catch (ClassNotFoundException e) {
@@ -255,10 +245,12 @@ public class Client {
     }
 
     public void getEarthquake(String[] eqkInfo) throws IOException{
+        oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
         wirteHashMap.put(EARTHQUAKE, request);
         oos.writeObject(wirteHashMap);
         oos.flush();
 
+        ois = new ObjectInputStream(Myconn.socket.getInputStream());
         try {
             readHashMap = (HashMap<Integer, Object>) ois.readObject();
         } catch (ClassNotFoundException e) {
@@ -299,7 +291,6 @@ public class Client {
         tpnInfo[9] = tDto.getTyp25();
         tpnInfo[10] = tDto.getRem();
         tpnInfo[11] = tDto.getImg();
-
     }
 
 }

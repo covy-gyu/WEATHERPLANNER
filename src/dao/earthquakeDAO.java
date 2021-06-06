@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 import dto.EarthquakeDTO;
 
@@ -61,6 +62,8 @@ public class EarthquakeDAO {
     public static boolean insertData(EarthquakeDTO dto) {
         String SQL = "INSERT INTO weather.Earthquake(tmEqk,fcTp,img,lat,lon,loc,mt,dep,rem,intScale)"
                 + "VALUES (?,?,?,?,?,?,?,?,?,?)";
+        if(Objects.equals(dto, null))
+        return insertResult;
         try {
             conn = DBConnection.getConnection();
             pstmt = conn.prepareStatement(SQL);

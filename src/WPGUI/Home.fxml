@@ -243,7 +243,7 @@
                         </VBox>
                      </center>
                      <right>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
                            <children>
                               <Button fx:id="btnRefresh" disable="true" mnemonicParsing="false" onAction="#handleBtnRefresh" prefHeight="35.0" prefWidth="119.0" text="새로고침">
                                  <font>
@@ -257,11 +257,13 @@
                                           <Font size="22.0" />
                                        </font>
                                     </Text>
-                                    <ImageView fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../WPimg/cloud.png" />
-                                       </image>
+                                    <ImageView fx:id="imgFuTemp1" fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                     </ImageView>
+                                    <Text fx:id="txtFuTemp1" strokeType="OUTSIDE" strokeWidth="0.0">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="68.0" prefWidth="100.0" spacing="5.0">
@@ -271,11 +273,13 @@
                                           <Font size="22.0" />
                                        </font>
                                     </Text>
-                                    <ImageView fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../WPimg/cloud.png" />
-                                       </image>
+                                    <ImageView fx:id="imgFuTemp2" fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                     </ImageView>
+                                    <Text fx:id="txtFuTemp2" strokeType="OUTSIDE" strokeWidth="0.0">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="68.0" prefWidth="100.0" spacing="5.0">
@@ -285,11 +289,13 @@
                                           <Font size="22.0" />
                                        </font>
                                     </Text>
-                                    <ImageView fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../WPimg/snow.png" />
-                                       </image>
+                                    <ImageView fx:id="imgFuTemp3" fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                     </ImageView>
+                                    <Text fx:id="txtFuTemp3" strokeType="OUTSIDE" strokeWidth="0.0">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="68.0" prefWidth="100.0" spacing="5.0">
@@ -299,14 +305,19 @@
                                           <Font size="22.0" />
                                        </font>
                                     </Text>
-                                    <ImageView fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../WPimg/snow.png" />
-                                       </image>
+                                    <ImageView fx:id="imgFuTemp4" fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                     </ImageView>
+                                    <Text fx:id="txtFuTemp4" strokeType="OUTSIDE" strokeWidth="0.0">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Text>
                                  </children>
                               </VBox>
                            </children>
+                           <BorderPane.margin>
+                              <Insets top="10.0" />
+                           </BorderPane.margin>
                         </VBox>
                      </right>
                   </BorderPane>

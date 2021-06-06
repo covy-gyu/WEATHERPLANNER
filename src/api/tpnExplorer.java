@@ -127,6 +127,7 @@ public class TpnExplorer {
         String resultCode = parse_header.get("resultCode").toString();
         if(checkResult(resultCode)==1)
         {
+            tpnDTO = null;
             return tpnDTO;
         }
 

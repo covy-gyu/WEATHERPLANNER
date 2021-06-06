@@ -90,6 +90,9 @@ public class HomeController implements Initializable {
 		Calendar cal = Calendar.getInstance();
 		int month = cal.get(Calendar.MONTH) + 1;
 		int day = cal.get(Calendar.DAY_OF_MONTH);
+		cal.add(cal.DATE, 3);
+		month = cal.get(Calendar.MONTH) + 1;
+		day = cal.get(Calendar.DAY_OF_MONTH);
 		txtDay1.setText(Integer.toString(month) + "/" + Integer.toString(day));
 		cal.add(cal.DATE, 1);
 		month = cal.get(Calendar.MONTH) + 1;
@@ -149,47 +152,47 @@ public class HomeController implements Initializable {
 		autoAlarm.setDaemon(true);
 		autoAlarm.start();
 
-		String[] earthqInfo = new String[7];
-		try {
-			client.getEarthquake(earthqInfo);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		// String[] earthqInfo = new String[7];
+		// try {
+		// 	client.getEarthquake(earthqInfo);
+		// } catch (IOException e1) {
+		// 	// TODO Auto-generated catch block
+		// 	e1.printStackTrace();
+		// }
 		
-		if (!Objects.equals(earthqInfo, null)) {
-			txtETime.setText("지진발생 시각 : " + earthqInfo[0]);
-			txtEIntens.setText("진도 : " + earthqInfo[1]);
-			txtELoc.setText("위치 : " + earthqInfo[2]);
-			txtElati.setText("위도 : " + earthqInfo[3]);
-			txtElong.setText("경도 : " + earthqInfo[4]);
-			txtEWarn.setText("주의사항 : " + earthqInfo[5]);
-			Image earthquake = new Image(earthqInfo[6]);
-			imgEarthq.setImage(earthquake);
-		}
+		// if (!Objects.equals(earthqInfo, null)) {
+		// 	txtETime.setText("지진발생 시각 : " + earthqInfo[0]);
+		// 	txtEIntens.setText("진도 : " + earthqInfo[1]);
+		// 	txtELoc.setText("위치 : " + earthqInfo[2]);
+		// 	txtElati.setText("위도 : " + earthqInfo[3]);
+		// 	txtElong.setText("경도 : " + earthqInfo[4]);
+		// 	txtEWarn.setText("주의사항 : " + earthqInfo[5]);
+		// 	Image earthquake = new Image(earthqInfo[6]);
+		// 	imgEarthq.setImage(earthquake);
+		// }
 
-		String[] typonInfo = new String[12];
-		try {
-			client.getTyphoon(typonInfo);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		if (!Objects.equals(typonInfo, null)) {
-			txtTyponName.setText("  태풍이름 :" + typonInfo[0]);
-			txtTyponRoute.setText("  진행방향 :" + typonInfo[1]);
-			txtTyponSpeed.setText("  이동속도 :" + typonInfo[2]);
-			txtTyponLati.setText("  위도 :" + typonInfo[3]);
-			txtTyponLong.setText("  경도 :" + typonInfo[4]);
-			txtTyponLoc.setText("  예상위치 :" + typonInfo[5]);
-			txtTyponCenter.setText("  중심기압 :" + typonInfo[6]);
-			txtTyponWind.setText("  최대풍속 :" + typonInfo[7]);
-			txtTyponStroke.setText("  강풍반경 :" + typonInfo[8]);
-			txtTyponStrom.setText("  폭풍반경 :" + typonInfo[9]);
-			txtTyponWarn.setText("  주의사항 :" + typonInfo[10]);
-			Image typon = new Image(typonInfo[11]);
-			imgTypon.setImage(typon);
-		}
+		// String[] typonInfo = new String[12];
+		// try {
+		// 	client.getTyphoon(typonInfo);
+		// } catch (IOException e1) {
+		// 	// TODO Auto-generated catch block
+		// 	e1.printStackTrace();
+		// }
+		// if (!Objects.equals(typonInfo, null)) {
+		// 	txtTyponName.setText("  태풍이름 :" + typonInfo[0]);
+		// 	txtTyponRoute.setText("  진행방향 :" + typonInfo[1]);
+		// 	txtTyponSpeed.setText("  이동속도 :" + typonInfo[2]);
+		// 	txtTyponLati.setText("  위도 :" + typonInfo[3]);
+		// 	txtTyponLong.setText("  경도 :" + typonInfo[4]);
+		// 	txtTyponLoc.setText("  예상위치 :" + typonInfo[5]);
+		// 	txtTyponCenter.setText("  중심기압 :" + typonInfo[6]);
+		// 	txtTyponWind.setText("  최대풍속 :" + typonInfo[7]);
+		// 	txtTyponStroke.setText("  강풍반경 :" + typonInfo[8]);
+		// 	txtTyponStrom.setText("  폭풍반경 :" + typonInfo[9]);
+		// 	txtTyponWarn.setText("  주의사항 :" + typonInfo[10]);
+		// 	Image typon = new Image(typonInfo[11]);
+		// 	imgTypon.setImage(typon);
+		// }
 	}
 
 	private ObservableList<String> city = FXCollections.observableArrayList("강원도", "경기도", "경상남도", "경상북도", "광주광역시",
@@ -298,6 +301,23 @@ public class HomeController implements Initializable {
 	public static String curProb;
 	public static String curDust;
 	public static String curDustDegree;
+	//주간날씨
+    @FXML
+    private Text txtFuTemp1;
+    @FXML
+    private Text txtFuTemp2;
+    @FXML
+    private Text txtFuTemp3;
+    @FXML
+    private Text txtFuTemp4;
+    @FXML
+    private ImageView imgFuTemp1;
+    @FXML
+    private ImageView imgFuTemp2;
+    @FXML
+    private ImageView imgFuTemp3;
+    @FXML
+    private ImageView imgFuTemp4;
 
 	@FXML
 	public void handleWeatherInfo(ActionEvent e) throws IOException {
@@ -550,7 +570,107 @@ public class HomeController implements Initializable {
 				}
 			}
 		}
+// 주간날씨
+String[] fuHiTemp = new String[4]; //최고온도
+String[] fuLowTemp = new String[4]; //최저온도
+String[] fuExpect = new String[4]; //맑음, 구름많음, 흐림
 
+fuHiTemp[0] = "30";
+fuHiTemp[1] = "31";
+fuHiTemp[2] = "32";
+fuHiTemp[3] = "33";
+fuLowTemp[0] = "20";
+fuLowTemp[1] = "10";
+fuLowTemp[2] = "1";
+fuLowTemp[3] = "-30";
+fuExpect[0] = "맑음";
+fuExpect[1] = "흐림";
+fuExpect[2] = "흐리고 비";
+fuExpect[3] = "구름많고 비";
+
+if(!Objects.equals(fuHiTemp, null) && !Objects.equals(fuLowTemp, null)){
+	txtFuTemp1.setText(fuHiTemp[0] + "/" + fuLowTemp[0]);
+	txtFuTemp2.setText(fuHiTemp[1] + "/" + fuLowTemp[1]);
+	txtFuTemp3.setText(fuHiTemp[2] + "/" + fuLowTemp[2]);
+	txtFuTemp4.setText(fuHiTemp[3] + "/" + fuLowTemp[3]);
+}
+
+for(int i = 0; i < 4; i++){
+	if(!Objects.equals(fuExpect, null) && fuExpect[i].equals("맑음")){
+		switch (i) {
+			case 0:
+				imgFuTemp1.setImage(sunImg);
+				break;
+			case 1:
+				imgFuTemp2.setImage(sunImg);
+				break;
+			case 2:
+				imgFuTemp3.setImage(sunImg);
+				break;
+			case 3:
+				imgFuTemp4.setImage(sunImg);
+				break;
+			default:
+				break;
+		}
+	}
+	else if(!Objects.equals(fuExpect, null) && (fuExpect[i].equals("구름많음") || fuExpect[i].equals("흐림"))){
+		switch (i) {
+			case 0:
+				imgFuTemp1.setImage(cloudImg);
+				break;
+			case 1:
+				imgFuTemp2.setImage(cloudImg);
+				break;
+			case 2:
+				imgFuTemp3.setImage(cloudImg);
+				break;
+			case 3:
+				imgFuTemp4.setImage(cloudImg);
+				break;
+			default:
+				break;
+		}
+	}
+	else{
+		if(!Objects.equals(fuLowTemp, null) && Integer.parseInt(fuLowTemp[i]) <= 0){
+			switch (i) {
+				case 0:
+					imgFuTemp1.setImage(snowImg);
+					break;
+				case 1:
+					imgFuTemp2.setImage(snowImg);
+					break;
+				case 2:
+					imgFuTemp3.setImage(snowImg);
+					break;
+				case 3:
+					imgFuTemp4.setImage(snowImg);
+					break;
+				default:
+					break;
+			}
+		}
+		else{
+			switch (i) {
+				case 0:
+					imgFuTemp1.setImage(rainImg);
+					break;
+				case 1:
+					imgFuTemp2.setImage(rainImg);
+					break;
+				case 2:
+					imgFuTemp3.setImage(rainImg);
+					break;
+				case 3:
+					imgFuTemp4.setImage(rainImg);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+}
 		client.getAir(airInfo);
 		// dust
 		String fineDust = airInfo[0]; // 미세먼지

@@ -2,11 +2,9 @@ package dao;
 
 import java.sql.*;
 
-import WPGUI.Myconn;
-
 public class DBConnection {
     public static Connection getConnection() {
-        String server = "jdbc:mysql://"+Myconn.socket.getInetAddress().toString()+":3306/weather"; // 서버 주소
+        String server = "jdbc:mysql://192.187.99.151:3306/weather"; // 서버 주소
         String user_name = "root"; //  접속자 id
         String password = "1234"; // 접속자 pw
         Connection conn = null;
