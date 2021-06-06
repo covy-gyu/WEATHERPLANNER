@@ -34,7 +34,6 @@ public class LogInController implements Initializable {
 			try {
 				handleBtnLoginAction(e);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
@@ -43,7 +42,6 @@ public class LogInController implements Initializable {
 	public void handleBtnLoginAction(ActionEvent e) throws IOException {
 		String id = txtID.getText();
 		System.out.println("ID: " + id);
-
 		String password = txtPWD.getText();
 		System.out.println("Password: " + password);
 
@@ -53,6 +51,7 @@ public class LogInController implements Initializable {
 			case 1:
 				try {
 					Myconn.setSessUserID(id);
+					Myconn.setSessUserPW(password);
 
 					Stage loginstage = (Stage) btnLogin.getScene().getWindow();
 					loginstage.close();

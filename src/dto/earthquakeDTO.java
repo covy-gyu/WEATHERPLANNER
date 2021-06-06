@@ -1,6 +1,6 @@
 package dto;
 
-public class earthquakeDTO {
+public class EarthquakeDTO {
    
     private String fcTp;
     private String img;
@@ -13,8 +13,8 @@ public class earthquakeDTO {
     private String tmEqk;
     private String dep;
 
-    public earthquakeDTO() {}
-    public earthquakeDTO(String fcTp, String img, String intScale, String lat, String loc, String lon, String mt,
+    public EarthquakeDTO() {}
+    public EarthquakeDTO(String fcTp, String img, String intScale, String lat, String loc, String lon, String mt,
             String rem, String tmEqk, String dep) {
         this.fcTp = fcTp;
         this.img = img;

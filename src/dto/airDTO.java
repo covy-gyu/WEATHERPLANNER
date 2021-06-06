@@ -1,8 +1,8 @@
 package dto;
 
-public class airDTO {
-    public airDTO() {}
-    public airDTO(String dataTime, String o3Value, String pm10Value, String pm25Value, String o3Grade,
+public class AirDTO {
+    public AirDTO() {}
+    public AirDTO(String dataTime, String o3Value, String pm10Value, String pm25Value, String o3Grade,
             String pm10Grade1h, String pm25Grade1h) {
         this.dataTime = dataTime;
         this.o3Value = o3Value;

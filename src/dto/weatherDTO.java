@@ -2,14 +2,14 @@ package dto;
 
 import java.util.HashMap;
 
-public class weatherDTO {
+public class WeatherDTO {
     private String fcstTIme;
     private HashMap<Object, Object> fcstMap;
 
-    public weatherDTO() {
+    public WeatherDTO() {
     }
 
-    public weatherDTO(String fcstTIme, HashMap<Object, Object> fcstMap) {
+    public WeatherDTO(String fcstTIme, HashMap<Object, Object> fcstMap) {
         this.fcstTIme = fcstTIme;
         this.fcstMap = fcstMap;
     }

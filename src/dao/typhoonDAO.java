@@ -5,11 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dto.typhoonDTO;
+import dto.TyphoonDTO;
 
-public class typhoonDAO {
+public class TyphoonDAO {
 
-    public typhoonDAO() {
+    public TyphoonDAO() {
     }
 
     boolean insertResult = false;
@@ -20,10 +20,10 @@ public class typhoonDAO {
     private Connection conn = null;
     private ResultSet rs = null;
 
-    public typhoonDTO selectData() {
+    public TyphoonDTO selectData() {
 
         String SQLcu = "SELECT * FROM weather.Typhoon ORDER BY typTm DESC LIMIT 1";
-        typhoonDTO resultDTO = new typhoonDTO();
+        TyphoonDTO resultDTO = new TyphoonDTO();
         try {
             conn = DBConnection.getConnection();
             pstmt = conn.prepareStatement(SQLcu);
@@ -66,7 +66,7 @@ public class typhoonDAO {
         return resultDTO;
     }
 
-    public boolean insertData(typhoonDTO tpnData) {
+    public boolean insertData(TyphoonDTO tpnData) {
         String SQL = "INSERT INTO weather.Typhoon(typTm,img,tmFc,typLat,typLon,typLoc,typDir,typSp,typPs,typWs,typ15,typ25,typName,typEn,rem,other)"
                 + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {

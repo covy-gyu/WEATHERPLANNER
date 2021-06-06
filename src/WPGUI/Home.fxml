@@ -117,6 +117,11 @@
                                           </Text>
                                           <ImageView fx:id="weatherImg1" fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">                                            
                                           </ImageView>
+                                          <Text fx:id="txtRain1" strokeType="OUTSIDE" strokeWidth="0.0">
+                                             <font>
+                                                <Font size="22.0" />
+                                             </font>
+                                          </Text>
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
@@ -133,6 +138,11 @@
                                           </Text>
                                           <ImageView fx:id="weatherImg2" fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                           </ImageView>
+                                          <Text fx:id="txtRain2" strokeType="OUTSIDE" strokeWidth="0.0">
+                                             <font>
+                                                <Font size="22.0" />
+                                             </font>
+                                          </Text>
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
@@ -149,6 +159,11 @@
                                           </Text>
                                           <ImageView fx:id="weatherImg3" fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                           </ImageView>
+                                          <Text fx:id="txtRain3" strokeType="OUTSIDE" strokeWidth="0.0">
+                                             <font>
+                                                <Font size="22.0" />
+                                             </font>
+                                          </Text>
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
@@ -165,6 +180,11 @@
                                           </Text>
                                           <ImageView fx:id="weatherImg4" fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                           </ImageView>
+                                          <Text fx:id="txtRain4" strokeType="OUTSIDE" strokeWidth="0.0">
+                                             <font>
+                                                <Font size="22.0" />
+                                             </font>
+                                          </Text>
                                        </children>
                                     </VBox>
                                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
@@ -181,6 +201,11 @@
                                           </Text>
                                           <ImageView fx:id="weatherImg5" fitHeight="33.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                           </ImageView>
+                                          <Text fx:id="txtRain5" strokeType="OUTSIDE" strokeWidth="0.0">
+                                             <font>
+                                                <Font size="22.0" />
+                                             </font>
+                                          </Text>
                                        </children>
                                     </VBox>
                                  </children>
@@ -284,14 +309,39 @@
                                                    <children>
                                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="지진정보">
                                                          <font>
-                                                            <Font size="43.0" />
+                                                            <Font size="33.0" />
                                                          </font>
                                                       </Text>
                                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="대비 및 대처방안">
                                                          <font>
-                                                            <Font size="43.0" />
+                                                            <Font size="33.0" />
                                                          </font>
                                                       </Text>
+                                                      <ImageView fitHeight="698.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../WPimg/eqk1.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <ImageView fitHeight="698.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../WPimg/eqk2.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <ImageView fitHeight="698.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../WPimg/eqk3.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <ImageView fitHeight="698.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../WPimg/eqk4.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <ImageView fitHeight="698.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../WPimg/eqk5.png" />
+                                                         </image>
+                                                      </ImageView>
                                                    </children>
                                                 </VBox>
                                              </content>

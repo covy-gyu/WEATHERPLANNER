@@ -6,26 +6,26 @@
 <?import javafx.scene.text.Text?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WPGUI.NoticeController">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2021/05/05/08:00">
+            <Text fx:id="txtCurTime" strokeType="OUTSIDE" strokeWidth="0.0" text="">
                <font>
                   <Font size="45.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="온도 : 21 °C">
+            <Text fx:id="txtCurTemp" strokeType="OUTSIDE" strokeWidth="0.0" text="">
                <font>
                   <Font size="36.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="비올 확률 : 10%">
+            <Text fx:id="txtCurRain" strokeType="OUTSIDE" strokeWidth="0.0" text="">
                <font>
                   <Font size="36.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="미세먼지 농도 : 50㎍/m³ (보통)">
+            <Text fx:id="txtCurDust" strokeType="OUTSIDE" strokeWidth="0.0" text="">
                <font>
                   <Font size="36.0" />
                </font>

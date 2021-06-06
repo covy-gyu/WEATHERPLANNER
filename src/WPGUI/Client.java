@@ -25,7 +25,7 @@ public class Client {
     HashMap<Integer, Object> wirteHashMap = null;
     HashMap<Integer, Object> map = new HashMap<Integer, Object>();
     HashSet<LocationDTO> ldtos = null;
-    ArrayList<weatherDTO> wdtos = null;
+    ArrayList<WeatherDTO> wdtos = null;
 
     int key = 0; // 키 값 찾기 (키 갯수 1개)
 
@@ -35,7 +35,7 @@ public class Client {
         }
     }
 
-    public int setLoginAndgetResult(String id, String pw) throws IOException{
+    public int setLoginAndgetResult(String id, String pw) throws IOException {
         oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
         LoginDTO dto = new LoginDTO();
         dto.setId(id);
@@ -53,10 +53,10 @@ public class Client {
         findKey(readHashMap);
 
         dto = (LoginDTO) readHashMap.get(key);
-        int result = dto.getResult(); ;
+        int result = dto.getResult();
+        ;
         return result;
     }
-
 
     public String[] setCityAndGetState(String city) throws IOException {
 
@@ -119,8 +119,8 @@ public class Client {
         return county;
     }
 
-    public airDTO getWeatherAndAir(String city, String state, String county, String[] time, String[] temperature,
-            String[] probPreci, String[] cloud) throws IOException {
+    public void getWeatherAndAir(String city, String state, String county, String[] time, String[] temperature,
+            String[] probPreci, String[] cloud, String[] airInfo) throws IOException {
 
         oos = new ObjectOutputStream(Myconn.socket.getOutputStream());
         LocationDTO resultDto = new LocationDTO();
@@ -140,9 +140,9 @@ public class Client {
             e.printStackTrace();
         }
         findKey(readHashMap);
-        wdtos = (ArrayList<weatherDTO>) readHashMap.get(key);
+        wdtos = (ArrayList<WeatherDTO>) readHashMap.get(key);
         int i = 0;
-        for (weatherDTO dtos : wdtos) {
+        for (WeatherDTO dtos : wdtos) {
             time[i] = dtos.getFcstTIme();
             temperature[i] = dtos.getFcstMap().get("T1H").toString();
             probPreci[i] = dtos.getFcstMap().get("REH").toString();
@@ -156,9 +156,13 @@ public class Client {
             e.printStackTrace();
         }
         findKey(readHashMap);
-        airDTO adto = (airDTO) readHashMap.get(key);
-        return adto;
+        AirDTO adto = (AirDTO) readHashMap.get(key);
+        airInfo[0] = adto.getPm10Value();
+        airInfo[1] = adto.getPm25Value();
+        airInfo[2] = adto.getO3Value();
+        airInfo[3] = adto.getPm10Grade1h();
+        airInfo[4] = adto.getPm25Grade1h();
+        airInfo[5] = adto.getO3Grade();
     }
-
 
 }

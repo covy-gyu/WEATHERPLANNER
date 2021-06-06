@@ -1,6 +1,6 @@
 package dto;
 
-public class typhoonDTO {
+public class TyphoonDTO {
 
     private String img;
     private String tmFc;
@@ -19,10 +19,10 @@ public class typhoonDTO {
     private String rem;
     private String other;
 
-    public typhoonDTO() {
+    public TyphoonDTO() {
     }
 
-    public typhoonDTO(String img, String tmFc, String typTm, String typLat, String typLon, String typLoc, String typDir,
+    public TyphoonDTO(String img, String tmFc, String typTm, String typLat, String typLon, String typLoc, String typDir,
             String typSp, String typPs, String typWs, String typ15, String typ25, String typName, String typEn,
             String rem, String other) {
         this.img = img;
