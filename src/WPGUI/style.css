@@ -1,0 +1,6 @@
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
