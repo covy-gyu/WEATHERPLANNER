@@ -2,22 +2,17 @@ package application;
 
 import dao.AlarmDAO;
 import dao.EarthquakeDAO;
-import dao.LocationDAO;
 import dao.LoginDAO;
 import dao.TyphoonDAO;
 import dto.AlarmDTO;
 import dto.EarthquakeDTO;
-import dto.LocationDTO;
 import dto.LoginDTO;
 import dto.TyphoonDTO;
 
 import java.io.*;
 import java.net.Socket;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class ServerThread extends Thread {
     public static final int LOGIN = 0;
@@ -32,7 +27,6 @@ public class ServerThread extends Thread {
 
     private Socket socket;
     private String userIP;
-    private HashMap<Integer, Object> hashMap = new HashMap();
 
     ServerThread(Socket socket) {
         this.socket = socket;
@@ -53,9 +47,7 @@ public class ServerThread extends Thread {
             }
         }
     }
-
     private void service() throws IOException {
-        // Connection conn = DBConnection.getConnection();
         ObjectInputStream objectInputStream;
         ObjectOutputStream objectOutputStream;
         boolean program_stop = false;
@@ -67,9 +59,8 @@ public class ServerThread extends Thread {
             HashMap<Integer, Object> readHashMap = new HashMap<>();
             HashMap<Integer, Object> writeHashMap = new HashMap<>();
             AlarmDTO alarmDTO = null;
-            TyphoonDTO tpnDTO = null;
             EarthquakeDTO eqkDTO = null;
-            Object request = null;
+            TyphoonDTO tpnDTO = null;
 
             boolean result = false;
             try {
@@ -155,7 +146,7 @@ public class ServerThread extends Thread {
                     System.out.println("지진 조회 요청받음");
                     tpnDTO = TyphoonDAO.selectData();
 
-                    writeHashMap.put(EARTHQUAKE, eqkDTO);
+                    writeHashMap.put(TYPHOON, tpnDTO);
                     objectOutputStream.writeObject(writeHashMap);
                     objectOutputStream.flush();
                     break;

@@ -12,7 +12,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import java.sql.*;
 
-public class airExplorer {
+public class AirExplorer {
     public static String[] airApi(String stationLoc) throws IOException, ParseException, SQLException {
 
 

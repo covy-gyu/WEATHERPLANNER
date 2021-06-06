@@ -17,7 +17,7 @@ import java.util.Locale;
 
 import dto.EarthquakeDTO;
 
-public class eqkExplorer {
+public class EqkExplorer {
 
     public static int checkResult(String code) {
         switch (code) {

@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class tpnExplorer {
+public class TpnExplorer {
 
     
     public static int checkResult(String code) {

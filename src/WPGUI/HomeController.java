@@ -150,14 +150,13 @@ public class HomeController implements Initializable {
 		autoAlarm.start();
 
 		String[] earthqInfo = new String[7];
-		earthqInfo[0] = "00:00시"; // 지진발생시각
-		earthqInfo[1] = "1.2"; // 진도
-		earthqInfo[2] = "구미"; // 위치
-		earthqInfo[3] = "20"; // 위도
-		earthqInfo[4] = "10"; // 경도
-		earthqInfo[5] = "없음"; // 주의사항
-		earthqInfo[6] = "https://cdn.discordapp.com/attachments/374922708946780172/851036467714195497/20210606_185501.jpg"; // 이미지
-
+		try {
+			client.getEarthquake(earthqInfo);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		if (!Objects.equals(earthqInfo, null)) {
 			txtETime.setText("지진발생 시각 : " + earthqInfo[0]);
 			txtEIntens.setText("진도 : " + earthqInfo[1]);
@@ -170,19 +169,12 @@ public class HomeController implements Initializable {
 		}
 
 		String[] typonInfo = new String[12];
-		typonInfo[0] = "규철태풍"; // 태풍이름
-		typonInfo[1] = "구미쪽"; // 진행방향
-		typonInfo[2] = "엄청 빠름"; // 이동속도
-		typonInfo[3] = "20"; // 위도
-		typonInfo[4] = "30"; // 경도
-		typonInfo[5] = "금오공댸쪽"; // 예상위치
-		typonInfo[6] = "엄청 쎔"; // 중심기압
-		typonInfo[7] = "개빠름"; // 최대풍속
-		typonInfo[8] = "좀 넓음"; // 강풍반경
-		typonInfo[9] = "좀 많이 넓음"; // 폭풍반경
-		typonInfo[10] = "규철이 조심"; // 주의사항
-		typonInfo[11] = "https://cdn.discordapp.com/attachments/374922708946780172/851036467714195497/20210606_185501.jpg"; // 이미지
-
+		try {
+			client.getTyphoon(typonInfo);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		if (!Objects.equals(typonInfo, null)) {
 			txtTyponName.setText("  태풍이름 :" + typonInfo[0]);
 			txtTyponRoute.setText("  진행방향 :" + typonInfo[1]);
