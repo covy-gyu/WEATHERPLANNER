@@ -5,11 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dto.earthquakeDTO;
+import dto.EarthquakeDTO;
 
-public class earthquakeDAO {
+public class EarthquakeDAO {
 
-    public earthquakeDAO() {
+    public EarthquakeDAO() {
     }
 
     boolean insertResult = false;
@@ -20,10 +20,10 @@ public class earthquakeDAO {
     private Connection conn = null;
     private ResultSet rs = null;
 
-    public earthquakeDTO selectData() {
+    public EarthquakeDTO selectData() {
 
         String SQLcu = "SELECT * FROM weather.Earthquake ORDER BY tmEqk DESC LIMIT 1";
-        earthquakeDTO resultDTO = new earthquakeDTO();
+        EarthquakeDTO resultDTO = new EarthquakeDTO();
         try {
             conn = DBConnection.getConnection();
             pstmt = conn.prepareStatement(SQLcu);
@@ -60,7 +60,7 @@ public class earthquakeDAO {
         return resultDTO;
     }
 
-    public boolean insertData(earthquakeDTO eqkData) {
+    public boolean insertData(EarthquakeDTO eqkData) {
         String SQL = "INSERT INTO weather.Earthquake(tmEqk,fcTp,img,lat,lon,loc,mt,dep,rem,intScale)"
                 + "VALUES (?,?,?,?,?,?,?,?,?,?)";
         try {

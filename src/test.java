@@ -5,8 +5,8 @@ import org.json.simple.parser.ParseException;
 
 import api.eqkExplorer;
 import api.tpnExplorer;
-import dao.earthquakeDAO;
-import dao.typhoonDAO;
+import dao.EarthquakeDAO;
+import dao.TyphoonDAO;
 
 public class test {
     public static void main(String[] args) throws IOException, ParseException {
@@ -18,12 +18,12 @@ public class test {
         // earthquakeDAO eqkDAO1 = new earthquakeDAO();
         // System.out.println(eqkDAO1.selectData());
 
-        typhoonDAO tpnDAO = new typhoonDAO();
+        TyphoonDAO tpnDAO = new TyphoonDAO();
         boolean result = false;
         result = tpnDAO.insertData(tpnExplorer.getTpnAPI());
         System.out.println(result);
 
-        typhoonDAO tpnDAO1 = new typhoonDAO();
+        TyphoonDAO tpnDAO1 = new TyphoonDAO();
         System.out.println(tpnDAO1.selectData());
     }
 }

@@ -12,7 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import dto.typhoonDTO;
+import dto.TyphoonDTO;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -65,8 +65,8 @@ public class tpnExplorer {
         return 0;
     }
 
-    public static typhoonDTO getTpnAPI() throws IOException, ParseException {
-        typhoonDTO tpnDTO = new typhoonDTO();
+    public static TyphoonDTO getTpnAPI() throws IOException, ParseException {
+        TyphoonDTO tpnDTO = new TyphoonDTO();
 
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
@@ -176,7 +176,7 @@ public class tpnExplorer {
             System.out.println("태풍이름(영문) : " + typoon.get("typEn"));
             System.out.println("참고사항 : " + typoon.get("rem"));
             System.out.println("비고 : " + typoon.get("other"));
-            tpnDTO = new typhoonDTO(img.toString(), tmFc.toString(), typTm.toString(), typLat.toString(), typLon.toString(), typLoc.toString(), typDir.toString(), typSp.toString(), typPs.toString(), typWs.toString(), typ15.toString(), typ25.toString(), typName.toString(), typEn.toString(), rem.toString(), other.toString());
+            tpnDTO = new TyphoonDTO(img.toString(), tmFc.toString(), typTm.toString(), typLat.toString(), typLon.toString(), typLoc.toString(), typDir.toString(), typSp.toString(), typPs.toString(), typWs.toString(), typ15.toString(), typ25.toString(), typName.toString(), typEn.toString(), rem.toString(), other.toString());
         }
         return tpnDTO;
     }

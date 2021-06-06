@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import dto.earthquakeDTO;
+import dto.EarthquakeDTO;
 
 public class eqkExplorer {
 
@@ -63,8 +63,8 @@ public class eqkExplorer {
         return 0;
     }
  
-    public static earthquakeDTO getEqkAPI() throws IOException, ParseException {
-        earthquakeDTO eqkDTO = new earthquakeDTO();
+    public static EarthquakeDTO getEqkAPI() throws IOException, ParseException {
+        EarthquakeDTO eqkDTO = new EarthquakeDTO();
 
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
@@ -153,7 +153,7 @@ public class eqkExplorer {
             System.out.println("tmFc : "+earthQuake.get("tmFc"));
             System.out.println("tmSeq : "+earthQuake.get("tmSeq"));
             System.out.println("dep : "+earthQuake.get("dep"));
-            eqkDTO = new earthquakeDTO(fcTp.toString(), img.toString(), intScale.toString(), lat.toString(), loc.toString(), lon.toString(), mt.toString(), rem.toString(), tmEqk.toString(), dep.toString());
+            eqkDTO = new EarthquakeDTO(fcTp.toString(), img.toString(), intScale.toString(), lat.toString(), loc.toString(), lon.toString(), mt.toString(), rem.toString(), tmEqk.toString(), dep.toString());
 		}
         return eqkDTO;
         

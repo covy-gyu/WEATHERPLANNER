@@ -3,10 +3,8 @@ package WPGUI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import dto.airDTO;
-
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -43,9 +41,7 @@ public class HomeController implements Initializable {
 	private ComboBox<String> comHour;
 	@FXML
 	private ComboBox<String> comMin;
-
-	public static ArrayList<String> aList = new ArrayList<String>();
-
+	
 	Client client = new Client();
 
 	// combobox
@@ -71,7 +67,6 @@ public class HomeController implements Initializable {
 			try {
 				handleBtnRefresh(e);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
@@ -81,9 +76,9 @@ public class HomeController implements Initializable {
 		comHour.setItems(alarmHour);
 		comMin.setItems(alarmMin);
 
-		// Alarm autoAlarm = new Alarm();
-		// autoAlarm.setDaemon(true);
-		// autoAlarm.start();
+		Alarm autoAlarm = new Alarm();
+		autoAlarm.setDaemon(true);
+		autoAlarm.start();
 	}
 
 	private ObservableList<String> city = FXCollections.observableArrayList("강원도", "경기도", "경상남도", "경상북도", "광주광역시",
@@ -95,10 +90,11 @@ public class HomeController implements Initializable {
 			"06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
 			"24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41",
 			"42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59");
+	
 	private String selectedCity = null;
 	private String selectedState = null;
 	private String selectedCounty = null;
-
+		
 
 	@FXML
 	public void handleWeatGroup(ActionEvent e) throws IOException {
@@ -112,12 +108,14 @@ public class HomeController implements Initializable {
 
 	@FXML
 	public void handleWeatCounty(ActionEvent e) throws IOException {
-		comWeatherCounty.getItems().clear();
-		String weatherCity = comWeatherCity.getValue().toString();
-		String weatherState = comWeatherState.getValue().toString();
-		selectedState = weatherState;
-		comWeatherCounty.getItems().addAll(client.setStateAndGetCounty(weatherCity,weatherState));
-		btnRefresh.setDisable(true);
+		if(!Objects.equals(comWeatherState.getValue(), null)){
+			String weatherCity = comWeatherCity.getValue().toString();
+			String weatherState = comWeatherState.getValue().toString();
+			comWeatherCounty.getItems().clear();
+			selectedState = weatherState;
+			comWeatherCounty.getItems().addAll(client.setStateAndGetCounty(weatherCity,weatherState));
+			btnRefresh.setDisable(true);
+		}
 	}
 
 	// weatherInfo
@@ -144,6 +142,16 @@ public class HomeController implements Initializable {
 	@FXML
 	private Text temper5;
 	@FXML
+	private Text txtRain1;
+	@FXML
+	private Text txtRain2;
+	@FXML
+	private Text txtRain3;
+	@FXML
+	private Text txtRain4;
+	@FXML
+	private Text txtRain5;
+	@FXML
 	private ImageView weatherImg1;
 	@FXML
 	private ImageView weatherImg2;
@@ -168,15 +176,15 @@ public class HomeController implements Initializable {
 	@FXML
 	private LineChart<String, Number> temperChart;
 
+	public static String curTemp;
+	public static String curProb;
+	public static String curDust;
+	public static String curDustDegree;
+
 	@FXML
 	public void handleWeatherInfo(ActionEvent e) throws IOException {
 		btnRefresh.setVisible(true);
 		btnRefresh.setDisable(false);
-		// weather
-		// String[] xyLocation = new String[2];
-		// xyLocation = LocationDAO.selectXY(comWeatherCity.getValue().toString(),
-		// comWeatherState.getValue().toString(),
-		selectedCounty = comWeatherCounty.getValue().toString();
 
 		temperChart.getData().clear();
 		XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
@@ -184,19 +192,25 @@ public class HomeController implements Initializable {
 		String[] time = new String[5]; // 시간정보
 		String[] temperature = new String[5]; // 기온
 		String[] probPreci = new String[5]; // 강수확률
+		String[] rainAmount = new String[5]; // 강수량
 		String[] cloud = new String[5]; // 구름 1 3 4
-		airDTO adto = client.getWeatherAndAir(selectedCity, selectedState, selectedCounty, time, temperature, probPreci, cloud);
 
+		String[] airInfo = new String[6];//대기오염
+        client.getWeatherAndAir(selectedCity, selectedState, selectedCounty, time, temperature, probPreci, cloud, airInfo);
 
 		for (int i = 0; i < time.length; i++) {
 			time[i] = Integer.toString(i); // 시간
 			temperature[i] = "18"; // 기온
 			probPreci[i] = "0"; // 강수확률
+			rainAmount[i] = "111"; // 강수량
 			cloud[i] = "3"; // 구름
 			series.getData().add(new XYChart.Data<String, Number>(time[i] + "시", Integer.parseInt(temperature[i]) + i));
 		}
+		curTemp = temperature[0];
+		curProb = probPreci[0];
 		series.setName("온도");
 		temperChart.getData().add(series);
+
 		// 주간날씨
 
 		currentTemperature.setText(temperature[0] + "°C");
@@ -210,6 +224,16 @@ public class HomeController implements Initializable {
 		temper3.setText(temperature[2] + "°C");
 		temper4.setText(temperature[3] + "°C");
 		temper5.setText(temperature[4] + "°C");
+		if(Integer.parseInt(rainAmount[0]) != 0)
+			txtRain1.setText(rainAmount[0] + "mm");
+		if(Integer.parseInt(rainAmount[1]) != 0)
+			txtRain2.setText(rainAmount[1] + "mm");
+		if(Integer.parseInt(rainAmount[2]) != 0)
+			txtRain3.setText(rainAmount[2] + "mm");
+		if(Integer.parseInt(rainAmount[3]) != 0)
+			txtRain4.setText(rainAmount[3] + "mm");
+		if(Integer.parseInt(rainAmount[4]) != 0)
+			txtRain5.setText(rainAmount[4] + "mm");
 
 		Image cloudImg = new Image("file:WeatherPlanner/src/WPimg/cloud.png");
 		Image moonImg = new Image("file:WeatherPlanner/src/WPimg/moon.png");
@@ -379,13 +403,16 @@ public class HomeController implements Initializable {
 		}
 
 		// dust
-		String fineDust = adto.getPm10Value(); // 미세먼지
-		String ultrafineDust = adto.getPm25Value(); // 초미세먼지
-		String ozone = adto.getO3Value(); // 오존
+		String fineDust = airInfo[0]; // 미세먼지
+        String ultrafineDust = airInfo[1]; // 초미세먼지
+        String ozone = airInfo[2]; // 오존
+		curDust = fineDust;
 
-		String fineDustDegree = adto.getPm10Grade1h(); // 미세먼지정도
-		String ultrafineDustDegree = adto.getPm25Grade1h(); // 초미세먼지정도
-		String ozoneDegree = adto.getO3Grade(); // 오존정도
+		String fineDustDegree = airInfo[3]; // 미세먼지정도
+        String ultrafineDustDegree = airInfo[4]; // 초미세먼지정도
+        String ozoneDegree = airInfo[5]; // 오존정도
+
+		curDustDegree = fineDustDegree;
 
 		txtFineDust.setText(fineDust + "㎍/m³");
 		txtUltrafineDust.setText(ultrafineDust + "㎍/m³");
@@ -471,17 +498,18 @@ public class HomeController implements Initializable {
 	@FXML
 	private CheckBox checkDust;
 	@FXML
-	private VBox alarmList;
+	VBox alarmList;
 	@FXML
 	private RadioButton alarmDetail;
 
 	ToggleGroup alarmli = new ToggleGroup();
 	String selected = "";
+	public static ArrayList<String> aList = new ArrayList<String>();
 
 	public void handleBtnSave(ActionEvent e) {
-		if (!alarmDate.getValue().equals("")
+		if (!Objects.equals(alarmDate.getValue(), null)
 				&& (checkTem.isSelected() || checkRain.isSelected() || checkDust.isSelected())
-				&& !comHour.getValue().isEmpty() && !comMin.getValue().isEmpty()) {
+				&& !Objects.equals(comHour.getValue(), null) && !Objects.equals(comMin.getValue(), null)) {
 			selected += alarmDate.getValue() + " " + comHour.getValue() + ":" + comMin.getValue() + " (";
 			if (checkTem.isSelected())
 				selected += "기, ";
@@ -494,17 +522,17 @@ public class HomeController implements Initializable {
 			selected += ")";
 
 			aList.add(selected);
-			System.out.println(selected + "가 저장됨");
-
 			alarmDetail = new RadioButton(selected);
 			alarmDetail.setToggleGroup(alarmli);
 			alarmList.getChildren().add(alarmDetail);
-
 			selected = "";
 		}
 	}
 
 	public void handleBtnDel(ActionEvent e) {
-		alarmList.getChildren().remove(alarmli.getSelectedToggle());
+		if(!Objects.equals(alarmli.getUserData(), null)){
+			aList.remove(((RadioButton)alarmli.getSelectedToggle()).getText());
+			alarmList.getChildren().remove(alarmli.getSelectedToggle());
+		}
 	}
 }
